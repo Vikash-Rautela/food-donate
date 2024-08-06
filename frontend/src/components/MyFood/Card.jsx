@@ -23,21 +23,21 @@ function Card(props) {
     active: "Available",
     delivered: "Delivered",
   };
-   // Dialog box
-   const [open, setOpen] = useState(false);
+  // Dialog box
+  const [open, setOpen] = useState(false);
 
-   const handleClickOpen = () => {
-     setOpen(true);
-   };
- 
-   const handleClose = () => {
-     setOpen(false);
-   };
-    // Dialog box form
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  // Dialog box form
   const initialFormState = {
     getterEmail: "",
     phoneNumber: "",
-    note :"",
+    note: "",
   };
   const [formData, setFormData] = useState(initialFormState);
 
@@ -56,7 +56,7 @@ function Card(props) {
           icon: 'success',
           title: 'Confirm Request',
           text: 'The request is confirmed successfully!',
-          color:"green",
+          color: "green",
           confirmButtonColor: 'green',
         });
         setFormData(initialFormState);
@@ -66,7 +66,7 @@ function Card(props) {
           icon: 'error',
           title: 'Confirmation Failed',
           text: 'Failed to confirm request. Please try again.',
-          color:"red",
+          color: "red",
           confirmButtonColor: 'red',
         });
         handleClose();
@@ -76,7 +76,7 @@ function Card(props) {
         icon: 'error',
         title: 'Confirmation Failed',
         text: 'Failed to confirm request. Please try again.',
-        color:"red",
+        color: "red",
         confirmButtonColor: 'red',
       });
       handleClose();
@@ -85,7 +85,7 @@ function Card(props) {
   const handleFood = async () => {
     const foodId = await axiosInstance.get(`/food/detail/${item.foodId}`);
     console.log(foodId)
-    setFoodName(foodId.data.data.foodName);
+    setFoodName(foodId.data.food.foodName);
   };
   useEffect(() => {
     handleFood();
@@ -111,14 +111,13 @@ function Card(props) {
         </div>
       </div>
       <div
-        className={`bg-[${
-          color[item.action]
-        }] px-4 py-2 rounded-md font-medium capitalize ${item.action==='active'?'cursor-pointer':''} `}
-        onClick={handleClickOpen} 
+        className={`bg-[${color[item.action]
+          }] px-4 py-2 rounded-md font-medium capitalize ${item.action === 'active' ? 'cursor-pointer' : ''} `}
+        onClick={handleClickOpen}
       >
         {text[item.action]}
       </div>
-      {item.action==='active'?<Dialog
+      {item.action === 'active' ? <Dialog
         open={open}
         onClose={handleClose}
         PaperProps={{
@@ -159,15 +158,15 @@ function Card(props) {
             name="note"
             value={formData.note}
             onChange={handleChange}
-            
+
           />
-          
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit">Send</Button>
         </DialogActions>
-      </Dialog>:''}
+      </Dialog> : ''}
     </motion.div>
   );
 }
