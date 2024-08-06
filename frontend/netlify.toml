@@ -1,0 +1,23 @@
+# Global settings
+[build]
+  command = "npm run build"
+  publish = "build"
+
+# Redirects and rewrites
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers
+[[headers]]
+  # Define headers for all paths under "/images/*"
+  for = "/images/*"
+    [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  # Improve caching headers for performance
+  for = "/*"
+    [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
