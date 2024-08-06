@@ -1,7 +1,7 @@
 # Global settings
 [build]
-  command = "npm run build"
-  publish = "build"
+  command = "npm run "
+  publish = "dist"
 
 # Redirects and rewrites
 [[redirects]]
