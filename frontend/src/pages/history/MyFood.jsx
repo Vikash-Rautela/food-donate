@@ -4,6 +4,7 @@ import image from "../../assets/lottie/donation.json";
 import { AuthContext } from "../../context/AuthContext";
 import axiosInstance from "../../utils/axiosInstance";
 import Card from "../../components/MyFood/Card";
+import { Helmet } from "react-helmet";
 function MyFood() {
   const { user } = useContext(AuthContext);
   const [history, setHistory] = useState([]);
@@ -29,8 +30,13 @@ function MyFood() {
   }, []);
 
   return (
-    <div className="bg-[#F5F5F5] pt-8 flex flex-col items-center gap-y-14 pb-20">
-      <Lottie options={defaultOptions} height={400} width={400} />
+    <div className="bg-[#F5F5F5] pt-8 flex flex-col items-center gap-y-14 pb-20 overflow-hidden">
+      <Helmet>
+        <html lang="en" />
+        <title>My Food</title>
+        <meta name="description" content="My Food" />
+      </Helmet>
+      <Lottie options={defaultOptions}  height={350} width={350} />
       <div className="font-semibold text-2xl -mt-20 -mb-4">
         Donated Food History
       </div>

@@ -80,7 +80,7 @@ const DonateForm = () => {
         await logout();
       }
       Swal.fire({
-        title: "OOPS! Error has occured",
+        title: `OOPS! Error(${error}) has occured `,
         text: "You can try again",
         icon: "error",
         color:"red",
@@ -93,13 +93,13 @@ const DonateForm = () => {
   })
   return (
     <div
-      className=" bg-[#F5F5F5]  flex  flex-col items-center pt-20 pb-16"style={{backgroundImage: 'url(https://media.istockphoto.com/id/515373062/vector/food-seamless-background.jpg?s=612x612&w=0&k=20&c=hexa_lBms2zsFxEHASUeYhNu17i8JfV3TGOoDark-tk=)'}}>
+      className=" bg-[#F5F5F5]  flex  flex-col items-center pt-20 pb-16 overflow-hidden"style={{backgroundImage: 'url(https://media.istockphoto.com/id/515373062/vector/food-seamless-background.jpg?s=612x612&w=0&k=20&c=hexa_lBms2zsFxEHASUeYhNu17i8JfV3TGOoDark-tk=)'}}>
       <Helmet>
         <html lang="en" />
         <title>Donate</title>
         <meta name="description" content="Donate food form" />
       </Helmet>
-      <div className="card bg-white bg-opacity-90 shadow-lg px-6 py-16 mb-5 mt-5 w-9/12 flex flex-col items-center justify-center" >
+      <div className="card bg-white bg-opacity-90 shadow-lg px-6 py-16 mb-5 mt-5 md:w-10/12 lg:w-9/12 w-11/12 flex flex-col items-center justify-center " >
        <div className=" md:text-4xl text-2xl text-center font-bold pb-10">Fill the form correctly !!</div>
         <form onSubmit={handleFoodData} className="flex flex-col w-11/12 items-center gap-y-10">
           <div className=" grid md:grid-cols-2 grid-cols-1 gap-y-10  gap-x-40 w-10/12 place-content-center place-items-stretch">
@@ -188,11 +188,11 @@ const DonateForm = () => {
                   </div>
                 )}
               </div>
-              <div className="flex gap-x-2">
+              <div className="flex gap-x-2 md:flex-row flex-col">
                 <label className="label">
                   <span className="label-text text-black font-bold text-lg">Food Image:</span>
                 </label>
-                <input type="file" onChange={handleImageChange} className="rounded-md" />
+                <input type="file" onChange={handleImageChange} className="rounded-md" required/>
               </div>
             </div>
 
@@ -237,6 +237,7 @@ const DonateForm = () => {
                   className="input rounded-md"
                   value={formData.note}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -253,6 +254,7 @@ const DonateForm = () => {
                   className="input rounded-md"
                   value={formData.phoneNo}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>

@@ -159,13 +159,13 @@ function FoodDetails() {
   const { name: userName, email: userEmail } = userDetails || {};
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <Helmet>
         <html lang="en" />
         <title>Food Details</title>
         <meta name="description" content="Food details page" />
       </Helmet>
-      <section className="bg-[#F5F5F5] pt-16">
+      <section className="bg-[#F5F5F5] pt-16 ">
         <div className="container flex flex-col-reverse mx-auto lg:flex-row">
           <div className="flex flex-col md:ml-24 md:mt-20 px-6 py-8 space-y-6 rounded-sm sm:p-8 lg:p-12 lg:w-1/2 xl:w-2/5  ">
             <h1 className="text-3xl capitalize leading-tight">

@@ -162,13 +162,13 @@ function AvailableFood() {
     }
 
     return (
-        <div className="pb-20 pt-16 bg-[#F5F5F5]">
+        <div className="pb-20 pt-16 bg-[#F5F5F5] overflow-hidden">
             <Helmet>
                 <html lang="en" />
                 <title>Available Foods</title>
                 <meta name="description" content="Available food items" />
             </Helmet>
-            <div className="space-y-3 mb-10">
+            <div className="space-y-3 mb-10 ">
                 <h5 className="text-xl text-center font-mono mt-12">
                     Let's Take Care of Each Other
                 </h5>

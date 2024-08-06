@@ -12,7 +12,7 @@ function Home() {
     "https://wishesandblessings.net/public/images/food_all.jpg",
   ];
   return (
-    <div className="bg-[#F5F5F5] pt-16">
+    <div className="bg-[#F5F5F5] pt-16 overflow-hidden">
       <Helmet>
         <html lang="en" />
         <title>Blessed Baskets</title>
