@@ -111,6 +111,13 @@ router.post("/request/:foodId", authMiddleware, async (req, res) => {
         const donor_mail = donor.email;
         const user = await Users.findById(userId);
         const userMail = user.email;
+        const existingActivity = user.activities.find(activity =>
+            activity.foodId.toString() === foodId && activity.action === 'requested'
+        );
+
+        if (existingActivity) {
+            return res.status(400).json({ success: false, msg: "You have already requested this food" });
+        }
 
         const mailOptions = {
             from: process.env.SENDER,
@@ -139,13 +146,6 @@ router.post("/request/:foodId", authMiddleware, async (req, res) => {
                 console.log('Email sent: ' + info.response);
 
                 const user = await Users.findById(userId);
-                const existingActivity = user.activities.find(activity =>
-                    activity.foodId.toString() === foodId && activity.action === 'requested'
-                );
-
-                if (existingActivity) {
-                    return res.status(400).json({ success: false, msg: "You have already requested this food" });
-                }
 
                 user.activities.push({
                     action: "requested",
