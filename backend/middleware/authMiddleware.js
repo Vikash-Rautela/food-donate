@@ -1,15 +1,17 @@
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
+if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET environment variable is not defined");
+}
 
 const authMiddleware = (req, res, next) => {
     const authHeader = req.headers.authorization;
-   // console.log(authHeader)
-    if (!authHeader || !authHeader.startsWith('Bearer')) {
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({
             success: false,
             msg: "Authorization header is missing or malformed.",
@@ -19,11 +21,10 @@ const authMiddleware = (req, res, next) => {
     const token = authHeader.split(' ')[1];
 
     try {
-        const decode = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, JWT_SECRET);
 
-        if (decode.userId) {
-        //    console.log(decode)
-            req.userId = decode.userId;
+        if (decoded.userId) {
+            req.userId = decoded.userId;
             next();
         } else {
             return res.status(403).json({
@@ -31,7 +32,6 @@ const authMiddleware = (req, res, next) => {
                 msg: "Invalid token: userId is missing.",
             });
         }
-
     } catch (error) {
         return res.status(403).json({
             success: false,
@@ -39,7 +39,6 @@ const authMiddleware = (req, res, next) => {
             error: error.message,
         });
     }
-
-}
+};
 
 export default authMiddleware;

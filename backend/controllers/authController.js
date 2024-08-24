@@ -1,26 +1,16 @@
-import express from "express";
-import { Users } from "../db.js";
-import zod from "zod";
+import  Users  from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from 'dotenv';
+import { signupSchema, signinSchema } from "../validations/authValidation.js";
+
 dotenv.config();
 
-const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const signupBody = zod.object({
-    name: zod.string(),
-    email: zod.string().email(),
-    gender: zod.string(),
-    contact: zod.string(),
-    address: zod.string(),
-    password: zod.string(),
-})
-
-router.post("/signup", async (req, res) => {
+export const signupController = async (req, res) => {
     try {
-        const parseResult = signupBody.safeParse(req.body);
+        const parseResult = signupSchema.safeParse(req.body);
         if (!parseResult.success) {
             return res.status(400).json({
                 success: false,
@@ -60,19 +50,13 @@ router.post("/signup", async (req, res) => {
             token,
         });
     } catch (error) {
-        // console.error("Error during signup:", error);
         return res.status(500).json({ success: false, msg: "Error during signup" });
     }
-});
+};
 
-const signinBody = zod.object({
-    email: zod.string().email(),
-    password: zod.string(),
-})
-
-router.post("/signin", async (req, res) => {
+export const signinController = async (req, res) => {
     try {
-        const parseResult = signinBody.safeParse(req.body);
+        const parseResult = signinSchema.safeParse(req.body);
         if (!parseResult.success) {
             return res.status(400).json({ success: false, msg: "Invalid input fields" });
         }
@@ -99,12 +83,11 @@ router.post("/signin", async (req, res) => {
         });
 
     } catch (error) {
-        // console.error("Error during signin:", error);
         return res.status(500).json({ success: false, msg: "Error during signin" });
     }
-});
+};
 
-router.get("/:userId", async (req, res) => {
+export const getUserController = async (req, res) => {
     try {
         const { userId } = req.params;
 
@@ -136,6 +119,4 @@ router.get("/:userId", async (req, res) => {
             error: e.message
         });
     }
-});
-
-export default router;
+};

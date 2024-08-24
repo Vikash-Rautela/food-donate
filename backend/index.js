@@ -1,21 +1,23 @@
 import express from "express";
 import cors from "cors";
-import userRouter from "./routes/user.js"
-import foodRouter from "./routes/food.js"
 import dotenv from 'dotenv';
+import connectToDB from './config/db.js'; 
+import userRouter from "./routes/userRoutes.js"; 
+import foodRouter from "./routes/foodRoutes.js";
 
-
-const app = express();
 dotenv.config();
 
-const PORT = process.env.PORT || 5000
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+connectToDB();
 
 app.use(express.json({ limit: '10mb' }));
 app.use(cors());
-app.use("/user", userRouter);
-app.use("/food", foodRouter);
+
+app.use("/api/user", userRouter);
+app.use("/api/food", foodRouter);
 
 app.listen(PORT, () => {
-    console.log(`app listning on the port ${PORT}`);
-})
-
+    console.log(`App listening on port ${PORT}`);
+});
